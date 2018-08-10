@@ -23,6 +23,7 @@
 #define VIS_COLOR_PAIR(n) (COLOR_PAIR(n))
 #endif
 
+
 vis::NcursesWriter::NcursesWriter()
 {
     initscr();
@@ -36,6 +37,13 @@ vis::NcursesWriter::NcursesWriter()
         use_default_colors(); // uses default colors of terminal, which allows
                               // transparency to work
     }
+    
+#ifdef USE_FLASCHEN
+    socket = OpenFlaschenTaschenSocket("localhost");
+    canvas = new UDPFlaschenTaschen(socket, 30, 22);
+    canvas->SetOffset(0,0,0);
+    canvas->Clear();
+#endif
 }
 
 void vis::NcursesWriter::setup_color_pairs(
@@ -93,6 +101,7 @@ void vis::NcursesWriter::write_background(int32_t height, int32_t width,
                            NcursesUtils::number_of_colors_supported()));
 }
 
+
 void vis::NcursesWriter::write_foreground(int32_t height, int32_t width,
                                           vis::ColorDefinition color,
                                           const std::wstring &msg)
@@ -119,16 +128,26 @@ void vis::NcursesWriter::write(const int32_t row, const int32_t column,
     {
         write_foreground(row, column, color, msg);
     }
+#ifdef USE_FLASCHEN
+    Color flaschcolor(color.get_red(), color.get_green(), color.get_blue());
+    canvas->SetPixel(row, column, flaschcolor);
+#endif
 }
 
 void vis::NcursesWriter::clear()
 {
+#ifdef USE_FLASCHEN
+	canvas->Clear();
+#endif
     standend();
     erase();
 }
 
 void vis::NcursesWriter::flush()
 {
+#ifdef USE_FLASCHEN
+	canvas->Send();
+#endif
     refresh();
 }
 
@@ -154,5 +173,9 @@ vis::NcursesWriter::to_color_pair(int32_t number, int32_t max,
 
 vis::NcursesWriter::~NcursesWriter()
 {
+#ifdef USE_FLASCHEN
+	canvas->Clear();
+	canvas->Send();
+#endif
     endwin();
 }

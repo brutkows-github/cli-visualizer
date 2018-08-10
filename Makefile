@@ -5,6 +5,7 @@
 TARGET= vis
 TEST_TARGET= run_tests
 PERF_TEST_TARGET= run_perf_tests
+FLASCHEN_TASCHEN_API_DIR= src/ft/api
 
 ###############################################################################
 ##  SETTINGS                                                                 ##
@@ -44,7 +45,7 @@ PERF_TEST_CXX_FLAGS += -fno-omit-frame-pointer
 PERF_TEST_CXX_FLAGS += -ggdb -g2
 
 # Libs
-LIBS = -lfftw3 -lm -lstdc++
+LIBS = -lfftw3 -lm -lstdc++ -lftclient
 TEST_LIBS = -lgtest -lpthread
 PERF_TEST_LIBS = -lbenchmark -lpthread
 
@@ -95,11 +96,11 @@ endif
 
 # Lib Paths
 ifdef VIS_NCURSES_LIB_PATH
-	LIB_PATH = -L"${VIS_NCURSES_LIB_PATH}" -L/usr/local/lib
-	INCLUDE_PATH = -I"${VIS_NCURSES_INCLUDE_PATH}" -I"$(DIR)/include" -I"$(DIR)/src"
+	LIB_PATH = -L"${VIS_NCURSES_LIB_PATH}" -L/usr/local/lib -L$(FLASCHEN_TASCHEN_API_DIR)/lib
+	INCLUDE_PATH = -I"${VIS_NCURSES_INCLUDE_PATH}" -I"$(DIR)/include" -I"$(DIR)/src" -I$(FLASCHEN_TASCHEN_APIR_DIR)/include
 else
-	INCLUDE_PATH = -I/usr/local/include -I"$(DIR)/include" -I"$(DIR)/src"
-	LIB_PATH = -L/usr/local/lib
+	INCLUDE_PATH = -I/usr/local/include -I"$(DIR)/include" -I"$(DIR)/src" -I$(FLASCHEN_TASCHEN_API_DIR)/include
+	LIB_PATH = -L/usr/local/lib -L$(FLASCHEN_TASCHEN_API_DIR)/lib
 endif
 
 TEST_INCLUDE_PATH = ${INCLUDE_PATH}

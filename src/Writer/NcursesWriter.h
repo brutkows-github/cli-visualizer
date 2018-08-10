@@ -19,7 +19,7 @@
 #define USE_FLASCHEN
 
 #ifdef USE_FLASCHEN
-#include "ft/udp-flaschen-taschen.h"
+#include "ft/api/include/udp-flaschen-taschen.h"
 #endif
 
 namespace vis
@@ -82,7 +82,7 @@ class NcursesWriter
                           vis::ColorDefinition color, const std::wstring &msg);
 #ifdef USE_FLASCHEN
     int socket;
-    UDPFlaschenTaschen canvas;
+    UDPFlaschenTaschen *canvas;
 #endif
 };
 } // namespace vis
