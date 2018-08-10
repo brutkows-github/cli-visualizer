@@ -100,8 +100,8 @@ static const uint32_t k_default_sgs_smoothing_points{
 static const uint32_t k_default_sgs_smoothing_passes{2};
 
 // spectrum defaults
-static const uint32_t k_default_spectrum_bar_width = 2;
-static const uint32_t k_default_spectrum_bar_spacing = 1;
+static const uint32_t k_default_spectrum_bar_width = 1;
+static const uint32_t k_default_spectrum_bar_spacing = 0;
 static const vis::SmoothingMode k_default_spectrum_smoothing_mode =
     vis::SmoothingMode::Sgs;
 static const vis::FalloffMode k_default_spectrum_falloff_mode =

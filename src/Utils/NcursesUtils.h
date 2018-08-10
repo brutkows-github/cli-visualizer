@@ -21,6 +21,9 @@
 #include <ncurses.h>
 #endif
 
+#define FIXED_WINDOW_WIDTH 30
+#define FIXED_WINDOW_HEIGHT 22
+
 namespace vis
 {
 
@@ -96,22 +99,33 @@ class NcursesUtils
 
     static inline int32_t get_window_height()
     {
+    	
+#ifdef FIXED_WINDOW_HEIGHT
+        return FIXED_WINDOW_HEIGHT;
+#else
         int32_t width, height;
 
         // getmaxyx is actually a macro, not a function, so pass it two integers
         getmaxyx(stdscr, height, width);
-
+        
         return height;
+#endif
+
     }
 
     static inline int32_t get_window_width()
     {
+#ifdef FIXED_WINDOW_WIDTH
+        return FIXED_WINDOW_WIDTH;
+#else
         int32_t width, height;
 
         // getmaxyx is actually a macro, not a function, so pass it two integers
         getmaxyx(stdscr, height, width);
 
         return width;
+#endif
+        
     }
 
     static inline int32_t get_user_input()

@@ -16,6 +16,12 @@
 
 #include "Domain/ColorDefinition.h"
 
+#define USE_FLASCHEN
+
+#ifdef USE_FLASCHEN
+#include "ft/udp-flaschen-taschen.h"
+#endif
+
 namespace vis
 {
 
@@ -74,6 +80,10 @@ class NcursesWriter
      */
     void write_foreground(int32_t height, int32_t width,
                           vis::ColorDefinition color, const std::wstring &msg);
+#ifdef USE_FLASCHEN
+    int socket;
+    UDPFlaschenTaschen canvas;
+#endif
 };
 } // namespace vis
 
