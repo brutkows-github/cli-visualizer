@@ -4,3 +4,6 @@
 [submodule "src/flaschen-taschen"]
 	path = src/flaschen-taschen
 	url = https://github.com/hzeller/flaschen-taschen.git
+[submodule "src/ft"]
+	path = src/ft
+	url = https://github.com/hzeller/flaschen-taschen.git
